@@ -48,54 +48,24 @@ public class TicTacToe {
     }
 
     private static void computerTurn() {
+        String userName = "Computer";
         int indexValue;
         int placeOf2 = checks[indexValue = random.nextInt(checks.length)];
         if (placeOf2 == 0) {
             computerTurn();
         }
         checks[indexValue] = 0;
-        firstTab = addTwo(firstTab, placeOf2);
+        createNewTab(addCheck(firstTab, placeOf2, userName));
+    }
+
+    private static void createNewTab(String s) {
+        firstTab = s;
         System.out.println(firstTab);
         System.out.println("-----------------------------");
     }
 
-    private static String addTwo(String firstTab, int number) {
-
-        String[] split = firstTab.split("\n");
-        if (number <= 9 && number > 6) {
-            number = number - 6;
-            String[] strings = split[2].split("");
-            for (int i = 0; i < strings.length; i++) {
-                if (i == number - 1) {
-                    strings[i] = "2";
-                }
-            }
-            split[2] = String.join("", strings);
-        } else if (number <= 6 && number > 3) {
-            number = number - 3;
-            String[] strings = split[1].split("");
-            for (int i = 0; i < strings.length; i++) {
-                if (i == number - 1) {
-                    strings[i] = "2";
-                }
-            }
-            split[1] = String.join("", strings);
-
-        } else if (number <= 3) {
-            String[] strings = split[0].split("");
-            for (int i = 0; i < strings.length; i++) {
-                if (i == number - 1) {
-                    strings[i] = "2";
-                }
-            }
-            split[0] = String.join("", strings);
-        }
-        return String.join("\n", split);
-
-
-    }
-
     private static void playerTurn() {
+        String userName = "Player";
         System.out.println("Choose number to place 1");
         System.out.println("number must be between 1 and 9");
         int placeOf1 = scanner.nextInt();
@@ -108,45 +78,51 @@ public class TicTacToe {
                 playerTurn();
             }
             checks[placeOf1 - 1] = 0;
-            firstTab = addOne(firstTab, placeOf1);
-            System.out.println(firstTab);
-            System.out.println("-----------------------------");
+            createNewTab(addCheck(firstTab, placeOf1, userName));
         }
     }
 
-    private static String addOne(String firstTab, int number) {
+    private static String addCheck(String firstTab, int number, String userName) {
+
+        String toReplace;
+        if (userName.equals("Player")) {
+            toReplace = "1";
+        } else {
+            toReplace = "2";
+        }
+
         String[] split = firstTab.split("\n");
         if (number <= 9 && number > 6) {
             number = number - 6;
             String[] strings = split[2].split("");
             for (int i = 0; i < strings.length; i++) {
-                if (i == number - 1) {
-                    strings[i] = "1";
-                }
+                replace(number, toReplace, strings, i);
             }
             split[2] = String.join("", strings);
         } else if (number <= 6 && number > 3) {
             number = number - 3;
             String[] strings = split[1].split("");
             for (int i = 0; i < strings.length; i++) {
-                if (i == number - 1) {
-                    strings[i] = "1";
-                }
+                replace(number, toReplace, strings, i);
             }
             split[1] = String.join("", strings);
 
         } else if (number <= 3) {
             String[] strings = split[0].split("");
             for (int i = 0; i < strings.length; i++) {
-                if (i == number - 1) {
-                    strings[i] = "1";
-                }
+                replace(number, toReplace, strings, i);
             }
             split[0] = String.join("", strings);
         }
         return String.join("\n", split);
 
 
+    }
+
+    private static void replace(int number, String toReplace, String[] strings, int i) {
+        if (i == number - 1) {
+            strings[i] = toReplace;
+        }
     }
 
     private static boolean checkIfPlayerWin(String firstTab) {
