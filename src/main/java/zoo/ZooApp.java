@@ -16,9 +16,7 @@ public class ZooApp {
         addExistingAnimalsToListAndShowThem();
         createAnimalAndAddToList();
         deleteAnimal();
-
     }
-
 
     private static void deleteAnimal() {
         String nameToDelete = setNameToDelete();
@@ -56,13 +54,10 @@ public class ZooApp {
         Animal createdAnimal = null;
         if (chosenAnimal == 1) {
             createdAnimal = new Cat(name, age);
-
         } else if (chosenAnimal == 2) {
             createdAnimal = new Dog(name, age);
-
         } else if (chosenAnimal == 3) {
             createdAnimal = new Hamster(name, age);
-
         }
         if (createdAnimal == null) {
             System.out.println("Wrong number");
