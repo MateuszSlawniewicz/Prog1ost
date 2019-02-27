@@ -24,8 +24,10 @@ public class TicTacToe {
             playerTurn();
             checkIfComputerWin(firstTab);
             checkIfPlayerWin(firstTab);
+            System.out.println("The End");
         }
-        System.out.println("The End");
+        System.out.println("Draw");
+
 
     }
 
