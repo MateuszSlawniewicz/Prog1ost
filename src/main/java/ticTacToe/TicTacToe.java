@@ -20,6 +20,11 @@ public class TicTacToe {
             }
             counter++;
         } while (counter <= 4);
+        while (counter == 5) {
+            playerTurn();
+            checkIfComputerWin(firstTab);
+            checkIfPlayerWin(firstTab);
+        }
         System.out.println("The End");
 
     }
