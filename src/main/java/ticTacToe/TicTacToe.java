@@ -48,14 +48,13 @@ public class TicTacToe {
     }
 
     private static void computerTurn() {
-        String userName = "Computer";
         int indexValue;
         int placeOf2 = checks[indexValue = random.nextInt(checks.length)];
         if (placeOf2 == 0) {
             computerTurn();
         }
         checks[indexValue] = 0;
-        createNewTab(addCheck(firstTab, placeOf2, userName));
+        createNewTab(addCheck(firstTab, placeOf2, Thread.currentThread().getStackTrace()[1].getMethodName()));
     }
 
     private static void createNewTab(String s) {
@@ -65,7 +64,6 @@ public class TicTacToe {
     }
 
     private static void playerTurn() {
-        String userName = "Player";
         System.out.println("Choose number to place 1");
         System.out.println("number must be between 1 and 9");
         int placeOf1 = scanner.nextInt();
@@ -78,19 +76,17 @@ public class TicTacToe {
                 playerTurn();
             }
             checks[placeOf1 - 1] = 0;
-            createNewTab(addCheck(firstTab, placeOf1, userName));
+            createNewTab(addCheck(firstTab, placeOf1, Thread.currentThread().getStackTrace()[1].getMethodName()));
         }
     }
 
-    private static String addCheck(String firstTab, int number, String userName) {
-
+    private static String addCheck(String firstTab, int number, String turn) {
         String toReplace;
-        if (userName.equals("Player")) {
+        if (turn.equals("playerTurn")) {
             toReplace = "1";
         } else {
             toReplace = "2";
         }
-
         String[] split = firstTab.split("\n");
         if (number <= 9 && number > 6) {
             number = number - 6;
@@ -133,7 +129,6 @@ public class TicTacToe {
                 System.out.println("Player win");
                 return true;
             }
-
         }
         String toCheck = String.join("", split);
 
