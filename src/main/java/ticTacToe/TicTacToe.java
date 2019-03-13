@@ -4,17 +4,18 @@ package ticTacToe;
 import java.util.Random;
 import java.util.Scanner;
 
+
 public class TicTacToe {
     public static Scanner scanner = new Scanner(System.in);
     public static Random random = new Random();
     public static String firstTab = "000\n000\n000";
     public static int[] checks = new int[9];
 
+
     public static void main(String[] args) {
         fillTheArray();
         int counter = 0;
         do {
-
             if (game()) {
                 return;
             }
@@ -27,8 +28,6 @@ public class TicTacToe {
             System.out.println("The End");
         }
         System.out.println("Draw");
-
-
     }
 
     private static void fillTheArray() {
@@ -43,7 +42,10 @@ public class TicTacToe {
             return true;
         }
         computerTurn();
-        return checkIfPlayerWin(firstTab) || checkIfComputerWin(firstTab);
+        if (checkIfPlayerWin(firstTab) || checkIfComputerWin(firstTab)) {
+            return true;
+        }
+        return false;
 
     }
 
@@ -52,7 +54,9 @@ public class TicTacToe {
         int placeOf2 = checks[indexValue = random.nextInt(checks.length)];
         if (placeOf2 == 0) {
             computerTurn();
+        } else {
         }
+
         checks[indexValue] = 0;
         createNewTab(addCheck(firstTab, placeOf2, Thread.currentThread().getStackTrace()[1].getMethodName()));
     }
@@ -102,7 +106,6 @@ public class TicTacToe {
                 replace(number, toReplace, strings, i);
             }
             split[1] = String.join("", strings);
-
         } else if (number <= 3) {
             String[] strings = split[0].split("");
             for (int i = 0; i < strings.length; i++) {
@@ -111,8 +114,6 @@ public class TicTacToe {
             split[0] = String.join("", strings);
         }
         return String.join("\n", split);
-
-
     }
 
     private static void replace(int number, String toReplace, String[] strings, int i) {
@@ -121,8 +122,8 @@ public class TicTacToe {
         }
     }
 
-    private static boolean checkIfPlayerWin(String firstTab) {
 
+    private static boolean checkIfPlayerWin(String firstTab) {
         String[] split = firstTab.split("\n");
         for (String s : split) {
             if (s.equals("111")) {
@@ -131,7 +132,6 @@ public class TicTacToe {
             }
         }
         String toCheck = String.join("", split);
-
         if (("" + toCheck.charAt(0) + toCheck.charAt(3) + toCheck.charAt(6)).equals("111")) {
             System.out.println("Player win");
             return true;
@@ -155,8 +155,8 @@ public class TicTacToe {
         return false;
     }
 
-    private static boolean checkIfComputerWin(String firstTab) {
 
+    private static boolean checkIfComputerWin(String firstTab) {
         String[] split = firstTab.split("\n");
         for (String s : split) {
             if (s.equals("222")) {
@@ -165,7 +165,6 @@ public class TicTacToe {
             }
         }
         String toCheck = String.join("", split);
-
         if (("" + toCheck.charAt(0) + toCheck.charAt(3) + toCheck.charAt(6)).equals("222")) {
             System.out.println("Computer win");
             return true;
@@ -187,5 +186,7 @@ public class TicTacToe {
             return true;
         }
         return false;
+
     }
+
 }
